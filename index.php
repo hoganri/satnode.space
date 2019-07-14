@@ -1,8 +1,24 @@
+<?php
+    //If the HTTPS is not found to be "on"
+    if(!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != "on") {
+    //Tell the browser to redirect to the HTTPS URL.
+    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], true, 301);
+    //Prevent the rest of the script from executing.
+    exit;
+    }
+?>
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66668414-6"></script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-66668414-7"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-66668414-7');
+	</script>
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,6 +35,10 @@
 	 
 
     <style>
+		.row{
+			margin-right:0;
+			margin-left:0;
+		}
 		#paymentResponse, #responseRow{
 			display:none;
 		}
@@ -42,7 +62,7 @@
     <!-- Custom styles for this template -->
   </head>
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-      <h3 class="my-0 mr-md-auto font-weight-normal"><a href="https://www.satnote.space">satnode.space</a></h3>
+      <h3 class="my-0 mr-md-auto font-weight-normal"><a href="https://satnode.space">satnode.space</a></h3>
 	  <nav class="my-2 my-md-0 mr-md-3">
 		  <a class="p-2 text-dark" href="http://satnode.space">New Broadcast</a>
 	  </nav>
@@ -53,7 +73,7 @@
 	  <div class="row">
 		  <h3>New Broadcast</h3>
 		  <form style="width:100%" onsubmit="return false">
-		  	<textarea id="userMessage" class="form-control" rows="5" placeholder="Enter a message and sent it to space" required=""></textarea>
+		  	<textarea id="userMessage" class="form-control" rows="5" placeholder="Enter a message and send it to space" required=""></textarea>
 		  	<input type="number" class="form-control" id="bid" placeholder="Bid amount in millisatoshi" required="">
 		  	<button id="payBroadcast" class="btn btn-primary">Pay Broadcast</button>
 		</form>
