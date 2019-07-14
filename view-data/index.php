@@ -22,11 +22,9 @@
 	    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Visualize Bitcoin block data to see total transactions per block and average transaction fees paid.">
-    <meta name="author" content="">
+	<meta name="description" content="Send Blockstream satellite transmissions and view transmission data.">    <meta name="author" content="">
     <meta name="generator" content="">
     <title>Blockstream Satellite | View Satellite Data</title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/grid/">
     <!-- Bootstrap core CSS -->
 	<link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
