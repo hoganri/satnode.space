@@ -73,9 +73,9 @@
 		  <table class="table table-hover" id="pending">
 		      <thead>
 		        <tr>
-		          <th>Message Size</th>
-		          <th>Bid per Byte</th>
-		          <th>Unpaid Bid</th>
+		          <th>Message Size (Bytes)</th>
+		          <th>Bid per Byte (Millisatoshi)</th>
+		          <th>Unpaid Bid (Millisatoshi)</th>
 		        </tr>
 		      </thead>
 		      <tbody>

@@ -38,7 +38,7 @@
 			margin-right:0;
 			margin-left:0;
 		}
-		#paymentResponse, #responseRow{
+		#errorRow, #paymentResponse, #responseRow{
 			display:none;
 		}
 		#paymentResponse{
@@ -73,12 +73,17 @@
 		  <h3>New Broadcast</h3>
 		  <form style="width:100%" onsubmit="return false">
 		  	<textarea id="userMessage" class="form-control" rows="5" placeholder="Enter a message and send it to space" required=""></textarea>
+			<p id="recBid"></p>
 		  	<input type="number" class="form-control" id="bid" placeholder="Bid amount in millisatoshi" required="">
 		  	<button id="payBroadcast" class="btn btn-primary">Pay Broadcast</button>
 		</form>
 	  </div>
 	  <br />
+	  <div class="row alert alert-danger" id="errorRow"></div>
 	  <div class="row" id="paymentResponse">
+		  <div class="alert alert-success" style="text-align:left;">
+		  	<strong>Success!</strong> Order details below...
+		  </div>
 		  <h2>Pay with Lightning</h2><br />
 		  <div class="col-sm-4">
 		  	<p id="qrcode"></p>

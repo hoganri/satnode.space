@@ -1,4 +1,17 @@
 if (document.getElementById('payBroadcast')){
+	msgText = document.getElementById('userMessage');
+	msgText.addEventListener('keyup', function() {
+		recBid = document.getElementById('recBid');
+		byteLength = new TextEncoder('utf-8').encode(msgText.value).length;
+		lowBid = parseInt(byteLength)*50;
+		lowBidSats = lowBid/1000;
+		if (lowBid < 1000){
+			recBid.innerText = "Min bid: 1000 (1 sats)";
+		} else {
+			recBid.innerText = "Min bid: " + lowBid + " (" + lowBidSats + " sats)";
+		}
+	});
+	
 	payBroadcast = document.getElementById('payBroadcast');
 	payBroadcast.addEventListener('click', function() {
 		sendBroadcast();
@@ -21,6 +34,7 @@ if (document.URL.search('/view-data')) {
 // Send a new broadcast
 function sendBroadcast() {	
 	document.getElementById('qrcode').innerText='';
+	document.getElementById('errorRow').style.display="none";
 	document.getElementById('paymentResponse').style.display="none";
 	document.getElementById('responseRow').style.display="none";
 	
@@ -35,12 +49,18 @@ function sendBroadcast() {
 	transmission.open('POST', url);
 	transmission.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 	transmission.onload = function() {
-		renderData(JSON.parse(transmission.responseText));
+		if (transmission.status !== 200) {
+			renderError(JSON.parse(transmission.responseText));
+		} else {
+			renderData(JSON.parse(transmission.responseText));
+		}
 	}
 	transmission.send();
-	
-	document.getElementById('paymentResponse').style.display="block";
-	document.getElementById('responseRow').style.display="block";
+}
+// Render error
+function renderError(data){
+	document.getElementById('errorRow').innerHTML="<strong>Error!</strong> " + data['message'];
+	document.getElementById('errorRow').style.display="block";
 }
 // Render HTML on homepage
 function renderData(data){
@@ -57,6 +77,8 @@ function renderData(data){
 	document.getElementById('expires_at').innerText=data['lightning_invoice']['expires_at'];
 	document.getElementById('created_at').innerText=data['lightning_invoice']['created_at'];
 	document.getElementById('sha256_message').innerText=data['lightning_invoice']['metadata']['sha256_message_digest'];
+	document.getElementById('paymentResponse').style.display="block";
+	document.getElementById('responseRow').style.display="block";
 }
 
 // Get sent orders
@@ -105,7 +127,6 @@ function renderPending(data){
 		bidByte = parseInt(data[i]['unpaid_bid'])/parseInt(data[i]['message_size']);
 		bidPerByte.push(bidByte.toFixed(0));
 	}
-	console.log(bidPerByte);
 	htmlString = '';
 	var x = 0;
 	while (x < unpaid.length) {
@@ -126,7 +147,7 @@ function startChart(bid, size, tx){
 		type: 'bar',
 	    data: {
 	        datasets: [{
-	            label: 'Bid per Byte',
+	            label: 'Bid per Byte (msat)',
 	            data: bid.reverse(),
 				backgroundColor: 'rgba(75, 192, 192, 0.2)',
 				borderColor: 'rgba(75, 192, 192, 0.2)',
